@@ -1,6 +1,9 @@
 general_settings: 
    master_key: os.environ/LITELLM_MASTER_KEY
 
+litellm_settings:
+  callbacks: logger.proxy_handler_instance
+
 model_list:
 
   - model_name: local-qwen-7b
