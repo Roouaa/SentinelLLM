@@ -14,7 +14,7 @@ from pathlib import Path
 
 from runner import ATTACKS_PATH, attack_succeeded, build_prompt, load_attacks, student
 
-MODELS = ["local-qwen-3b", "local-qwen-7b", "local-mistral-7b"]
+MODELS = ["local-qwen-3b", "local-qwen-7b", "local-mistral-7b", "cloud-default"]
 RUNS = 5
 RESULTS_PATH = Path(__file__).parent / "results" / "sweep.csv"
 COLUMNS = ["timestamp", "model", "case_id", "use_markers", "run", "verdict", "answer"]
