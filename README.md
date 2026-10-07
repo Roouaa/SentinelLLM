@@ -156,13 +156,18 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# 2. a local model
+# 2. secrets
+cp .env.example .env
+echo "LITELLM_MASTER_KEY=sk-$(openssl rand -hex 24)" >> .env
+# then paste your provider key into ANTHROPIC_API_KEY
+
+# 3. a local model
 ollama pull qwen2.5:3b
 
-# 3. the gateway — leave this running in its own terminal
+# 4. the gateway — from the repo root, in its own terminal
 litellm --config gateway/model_list.yaml
 
-# 4. the harness — in another terminal
+# 5. the harness — in another terminal
 python -m eval.runner
 ```
 

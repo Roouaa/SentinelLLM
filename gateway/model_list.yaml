@@ -1,4 +1,8 @@
+general_settings: 
+   master_key: os.environ/LITELLM_MASTER_KEY
+
 model_list:
+
   - model_name: local-qwen-7b
     litellm_params:
       model: "ollama/qwen2.5:7b"
@@ -13,3 +17,8 @@ model_list:
     litellm_params:
       model: "ollama/qwen2.5:3B"
       api_base: "http://localhost:11434"
+
+  - model_name: cloud-default
+    litellm_params:
+      model: "anthropic/claude-sonnet-5"
+      api_key: os.environ/ANTHROPIC_API_KEY
