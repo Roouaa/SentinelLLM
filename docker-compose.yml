@@ -1,0 +1,9 @@
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    # Mount the models already on this machine (~11 GB) instead of re-downloading.
+    volumes:
+      - /home/roua/.ollama:/root/.ollama
+    ports:
+      - "11435:11434"   # 11434 is taken by the host ollama service for now
