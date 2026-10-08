@@ -1,9 +1,28 @@
-
 services:
   ollama:
     image: ollama/ollama:latest
-    # Mount the models already on this machine (~11 GB) instead of re-downloading.
+    # The models already on this machine (~11 GB), not re-downloaded.
     volumes:
       - /home/roua/.ollama:/root/.ollama
     ports:
-      - "11435:11434"   # 11434 is taken by the host ollama service for now
+      # Published only so you can reach Ollama directly for debugging.
+      # The gateway does not use this — it reaches ollama over the internal
+      # network, by service name.
+      - "11434:11434"   # 11434 still held by the host ollama service
+    restart: unless-stopped
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main-stable
+    depends_on:
+      - ollama
+    env_file: .env
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+    volumes:
+      - ./gateway:/app/gateway:ro
+      - ./logs:/app/logs
+    working_dir: /app/gateway
+    command: ["--config", "/app/gateway/model_list.yaml", "--port", "4000", "--host", "0.0.0.0"]
+    ports:
+      - "4000:4000"
+    restart: unless-stopped

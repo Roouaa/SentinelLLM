@@ -9,17 +9,17 @@ model_list:
   - model_name: local-qwen-7b
     litellm_params:
       model: "ollama/qwen2.5:7b"
-      api_base: "http://localhost:11434"
+      api_base: os.environ/OLLAMA_BASE_URL
 
   - model_name: local-mistral-7b
     litellm_params:
       model: "ollama/mistral:7b"
-      api_base: "http://localhost:11434"
+      api_base: os.environ/OLLAMA_BASE_URL
 
   - model_name: local-qwen-3b
     litellm_params:
       model: "ollama/qwen2.5:3B"
-      api_base: "http://localhost:11434"
+      api_base: os.environ/OLLAMA_BASE_URL
 
   - model_name: cloud-default
     litellm_params:

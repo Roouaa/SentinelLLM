@@ -6,8 +6,7 @@ import requests
 import yaml
 from dotenv import load_dotenv
 
-# The .env lives at the repo root, one level above this file. Pointing at it
-# explicitly means the harness works from any folder, not just from eval/.
+
 load_dotenv(Path(__file__).parent.parent / ".env")
 
 ATTACKS_PATH = Path(__file__).parent/"cases"/"attacks.yaml"
