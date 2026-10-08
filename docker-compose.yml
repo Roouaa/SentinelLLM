@@ -17,11 +17,18 @@ services:
       - ollama
     env_file: .env
     environment:
+      # Inside the Docker network, "ollama" is the other container's hostname.
+      # "localhost" here would mean this container itself.
       OLLAMA_BASE_URL: http://ollama:11434
+      # So "logger.proxy_handler_instance" in the config resolves to
+      # /app/gateway/logger.py. Setting working_dir instead would break the
+      # image's entrypoint, which is a relative path resolved from /app.
+      PYTHONPATH: /app/gateway
     volumes:
+      # Read-only: the gateway reads its config and never writes it.
       - ./gateway:/app/gateway:ro
+      # Writable: log lines land here, on your disk, outliving the container.
       - ./logs:/app/logs
-    working_dir: /app/gateway
     command: ["--config", "/app/gateway/model_list.yaml", "--port", "4000", "--host", "0.0.0.0"]
     ports:
       - "4000:4000"

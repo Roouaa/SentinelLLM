@@ -73,10 +73,21 @@ Two things follow:
 - When it is finally assembled into a prompt, it is wrapped in explicit markers with a
   statement that the enclosed text is data and must never be obeyed.
 
-That wrapping is a **mitigation, not a control**. A determined attacker can write the
-closing marker into their own document, and a model may ignore the instruction anyway.
-It raises the cost of the attack. It does not prevent it. The controls that actually hold
-are the ones in the next section.
+That wrapping is a **mitigation, not a control**, and the eval harness has measured both
+halves of that claim.
+
+Against a naive injection it can work completely: one case went from succeeding 5 times out
+of 5 to 0 out of 5 on one model once the markers were added.
+
+Against an attacker who knows the delimiter it is worth nothing. A test case whose document
+contains the closing marker — so the text after it appears to come from outside the fence —
+succeeded **15 times out of 15** against every self-hosted model, with and without the
+markers enabled, no variance. One model leaked the key *before* answering the user's actual
+question, having treated the text after the fake marker as outranking it.
+
+A delimiter the attacker can read is not a boundary. Unpredictable per-request markers would
+raise the cost; nothing at the prompt layer removes the attack. The controls that actually
+hold are the ones in the next section.
 
 ## Classification and routing
 
