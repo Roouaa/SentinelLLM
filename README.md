@@ -220,7 +220,7 @@ LOG.md                   two lines per working session
 | | | |
 |---|---|---|
 | **M0** | prompt-injection eval harness | done |
-| **M1** | gateway: Ollama + a cloud provider, API keys, token and cost logging, Docker Compose | in progress |
+| **M1** | gateway: Ollama + a cloud provider, API keys, token and cost logging, Docker Compose | done |
 | **M2** | classification routing (PUBLIC → RESTRICTED) and SSO with Keycloak | |
 | **M3** | AWS with Bedrock, basic monitoring | |
 | **M4** | Kubernetes with kind | |
